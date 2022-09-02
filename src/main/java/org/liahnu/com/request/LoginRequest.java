@@ -3,9 +3,7 @@ package org.liahnu.com.request;
 
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.cookie.Cookie;
-import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.apache.hc.core5.http.ClassicHttpResponse;
-import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.liahnu.com.utility.CryptoAesUtil;
 
