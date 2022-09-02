@@ -1,11 +1,14 @@
 package org.liahnu.com.request;
 
 
+
 import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.cookie.Cookie;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.client5.http.entity.mime.Header;
+import org.apache.hc.client5.http.impl.DefaultRedirectStrategy;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
@@ -43,9 +46,13 @@ public abstract class PostRequest {
      */
 
     public void postRequest()throws Exception{
-        try (CloseableHttpClient httpClient = HttpClients.custom()
+        HttpClient httpClient = HttpClients.custom()
                 .setDefaultCookieStore(basicCookieStore)
-                .build()) {
+                .setDefaultRequestConfig(RequestConfig.custom()
+                        .setCircularRedirectsAllowed(true)
+                        .build())
+                .build() ;
+
             HttpPost httpPost = new HttpPost(url);
             httpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36");
             httpPost.addHeader("Cookie",basicCookieStore);
@@ -54,7 +61,7 @@ public abstract class PostRequest {
                 doPost(httpPost, response);
                 return null;
             });
-        }
+
     }
 
     public abstract void doPost(HttpPost httpPost, ClassicHttpResponse httpResponse);

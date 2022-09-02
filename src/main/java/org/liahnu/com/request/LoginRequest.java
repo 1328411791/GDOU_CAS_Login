@@ -11,6 +11,7 @@ import org.liahnu.com.utility.CryptoAesUtil;
 
 import java.util.List;
 
+
 public class LoginRequest extends PostRequest {
 
     private static final String url = "http://authserver.gdou.edu.cn/authserver/login";
@@ -29,6 +30,8 @@ public class LoginRequest extends PostRequest {
 
     private String pwdEncryptSalt;
 
+    private Cookie MOD_AUTH_CAS;
+
     public LoginRequest(){
         super(url);
     }
@@ -39,7 +42,7 @@ public class LoginRequest extends PostRequest {
         this.password=password;
         setFirstLoginRequest();
         try {
-            this.password_aes= CryptoAesUtil.encrypt(password,this.pwdEncryptSalt);
+            this.password_aes= CryptoAesUtil.encrypt(this.password,this.pwdEncryptSalt);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -87,6 +90,21 @@ public class LoginRequest extends PostRequest {
     @Override
     public void doPost(HttpPost httpPost, ClassicHttpResponse httpResponse) {
         List<Cookie> cookies=basicCookieStore.getCookies();
-        System.out.println(cookies);
+
+        for (Cookie cookie:cookies) {
+            if (cookie.getName().equals("MOD_AUTH_CAS")) {
+                MOD_AUTH_CAS = cookie;
+                break;
+            }
+        }
+
+    }
+
+    public Cookie getAuth() {
+        return MOD_AUTH_CAS;
+    }
+
+    public void setAuth(Cookie MOD_AUTH_CAS) {
+        this.MOD_AUTH_CAS = MOD_AUTH_CAS;
     }
 }
