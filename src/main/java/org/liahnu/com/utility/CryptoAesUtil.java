@@ -19,7 +19,7 @@ public class CryptoAesUtil {
         Security.addProvider(new BouncyCastleProvider());
     }
 
-    public static String  randString64(){
+    private static String  randString64(){
         //生成随机64位字符串
         String str = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678";
         StringBuilder sb = new StringBuilder(64);
