@@ -5,7 +5,7 @@ public class loginClientTest {
     @Test
     public void testClient() {
         try {
-            LoginClient loginClient = new LoginClient("202144011308", "Yu20030405");
+            LoginClient loginClient = new LoginClient("", "");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

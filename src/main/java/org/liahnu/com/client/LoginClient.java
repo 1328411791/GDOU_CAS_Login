@@ -9,7 +9,7 @@ public class LoginClient {
     public LoginClient(String username, String password) throws Exception {
         loginRequest = new LoginRequest(username, password);
         loginRequest.postRequest();
-        ;
+
     }
 
     public boolean isLoginCas() {

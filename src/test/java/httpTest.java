@@ -7,7 +7,7 @@ public class httpTest {
 
     @Test
     public void testLoginHttp() throws Exception {
-        LoginRequest loginRequest=new LoginRequest("202144011308","Yu20030405");
+        LoginRequest loginRequest = new LoginRequest("", "");
         loginRequest.postRequest();
         System.out.println(loginRequest.getAuth());
     }
@@ -16,7 +16,7 @@ public class httpTest {
     public void testJHttp() throws Exception {
         FirstLoginRequest firstLoginRequest=new FirstLoginRequest();
         firstLoginRequest.getRequest();
-        System.out.println(CryptoAesUtil.encrypt("Yu20030405",firstLoginRequest.getPwdEncryptSalt()));
+        System.out.println(CryptoAesUtil.encrypt("", firstLoginRequest.getPwdEncryptSalt()));
         System.out.println(firstLoginRequest.getJSESSIONID());
         System.out.println(firstLoginRequest.getExecution());
 

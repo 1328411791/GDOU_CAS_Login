@@ -1,16 +1,16 @@
 package org.liahnu.com.utility;
 
-import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
-
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.Security;
 import java.util.Base64;
 
+@SuppressWarnings("ALL")
 public class CryptoAesUtil {
     private static final byte[] SIV = new byte[16];
     private static final String ALGORITHMS = "AES/CBC/PKCS7Padding";
