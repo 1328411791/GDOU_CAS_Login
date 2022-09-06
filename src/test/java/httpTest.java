@@ -9,6 +9,7 @@ public class httpTest {
     public void testLoginHttp() throws Exception {
         LoginRequest loginRequest=new LoginRequest("202144011308","Yu20030405");
         loginRequest.postRequest();
+        System.out.println(loginRequest.getAuth());
     }
 
     @Test

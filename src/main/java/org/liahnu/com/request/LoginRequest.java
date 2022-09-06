@@ -23,8 +23,8 @@ public class LoginRequest extends PostRequest {
     private static String _eventId="submit";
     private static String cllt="userNameLogin";
     private static String dllt="generalLogin";
-    private static String lt="";
-    private String execution;
+    private static String lt = "";
+    private String execution = "";
 
     private String pwdEncryptSalt;
 
@@ -33,6 +33,7 @@ public class LoginRequest extends PostRequest {
     public LoginRequest(){
         super(url);
     }
+
 
     public LoginRequest(String username,String password){
         super(url);
@@ -50,44 +51,30 @@ public class LoginRequest extends PostRequest {
     private void setFirstLoginRequest(){
         try {
             FirstLoginRequest firstLoginRequest = new FirstLoginRequest();
-            firstLoginRequest.getRequest();
-            setExecution(firstLoginRequest);
-            setCookies(firstLoginRequest);
+            this.execution = firstLoginRequest.getExecution();
+            this.pwdEncryptSalt = firstLoginRequest.getPwdEncryptSalt();
+            this.basicCookieStore = firstLoginRequest.getBasicCookieStore();
         }catch (Exception e){
             throw new RuntimeException(e);
         }
     }
 
-    private void setExecution(FirstLoginRequest firstLoginRequest) {
-        this.execution = firstLoginRequest.getExecution();
-        this.pwdEncryptSalt=firstLoginRequest.getPwdEncryptSalt();
-    }
-    private void setCookies(FirstLoginRequest firstLoginRequest) {
-        try {
-            firstLoginRequest.getRequest();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        this.basicCookieStore=firstLoginRequest.getBasicCookieStore();
-    }
-
-
-
-    private void setPara(){
-        nvps.add(new BasicNameValuePair("username",username));
-        nvps.add(new BasicNameValuePair("password",password_aes));
-        nvps.add(new BasicNameValuePair("captcha",captcha));
-        nvps.add(new BasicNameValuePair("rememberMe",rememberMe));
-        nvps.add(new BasicNameValuePair("_eventId",_eventId));
-        nvps.add(new BasicNameValuePair("cllt",cllt));
-        nvps.add(new BasicNameValuePair("dllt",dllt));
-        nvps.add(new BasicNameValuePair("lt",lt));
-        nvps.add(new BasicNameValuePair("execution",execution));
+    private void setPara() {
+        this.nvps.add(new BasicNameValuePair("username", username));
+        this.nvps.add(new BasicNameValuePair("password", password_aes));
+        this.nvps.add(new BasicNameValuePair("captcha", captcha));
+        this.nvps.add(new BasicNameValuePair("rememberMe", rememberMe));
+        this.nvps.add(new BasicNameValuePair("_eventId", _eventId));
+        this.nvps.add(new BasicNameValuePair("cllt", cllt));
+        this.nvps.add(new BasicNameValuePair("dllt", dllt));
+        this.nvps.add(new BasicNameValuePair("lt", lt));
+        this.nvps.add(new BasicNameValuePair("execution", execution));
     }
 
     @Override
     public void doPost(HttpPost httpPost, ClassicHttpResponse httpResponse) {
-        List<Cookie> cookies=basicCookieStore.getCookies();
+        String html = String.valueOf(httpResponse.getEntity());
+        List<Cookie> cookies = basicCookieStore.getCookies();
 
         for (Cookie cookie:cookies) {
             if (cookie.getName().equals("MOD_AUTH_CAS")) {
@@ -104,5 +91,21 @@ public class LoginRequest extends PostRequest {
 
     public void setAuth(Cookie MOD_AUTH_CAS) {
         this.MOD_AUTH_CAS = MOD_AUTH_CAS;
+    }
+
+    public String getExecution() {
+        return execution;
+    }
+
+    public void setExecution(String execution) {
+        this.execution = execution;
+    }
+
+    public String getPwdEncryptSalt() {
+        return pwdEncryptSalt;
+    }
+
+    public void setPwdEncryptSalt(String pwdEncryptSalt) {
+        this.pwdEncryptSalt = pwdEncryptSalt;
     }
 }

@@ -26,8 +26,9 @@ public class FirstLoginRequest extends GetRequest{
 
     private static final String url="http://authserver.gdou.edu.cn/authserver/login";
 
-    public FirstLoginRequest(){
+    public FirstLoginRequest() throws Exception {
         super.setUrl(url);
+        getRequest();
     }
 
 
