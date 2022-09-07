@@ -34,17 +34,17 @@ public class FirstLoginRequest extends GetRequest{
 
 
     @Override
-    public void doGet(HttpGet httpPost, ClassicHttpResponse httpResponse) {
+    protected void doGet(HttpGet httpPost, ClassicHttpResponse httpResponse) {
         try {
-        List<Cookie> cookies=basicCookieStore.getCookies();
-        HttpEntity httpEntity=httpResponse.getEntity();
-        html=EntityUtils.toString(httpEntity,"UTF-8");
+            List<Cookie> cookies = basicCookieStore.getCookies();
+            HttpEntity httpEntity = httpResponse.getEntity();
+            html = EntityUtils.toString(httpEntity, "UTF-8");
 
-        getToken(html);
+            getToken(html);
 
-        for (Cookie cookie:cookies) {
-            if (Objects.equals(cookie.getName(), "JSESSIONID")) {
-                this.JSESSIONID = cookie;
+            for (Cookie cookie : cookies) {
+                if (Objects.equals(cookie.getName(), "JSESSIONID")) {
+                    this.JSESSIONID = cookie;
                 return;
             }
         }

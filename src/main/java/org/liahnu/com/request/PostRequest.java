@@ -15,9 +15,9 @@ import java.util.List;
 
 public abstract class PostRequest {
     private String url;
-    List<NameValuePair> nvps=new ArrayList<>();
+    public List<NameValuePair> nvps = new ArrayList<>();
 
-    BasicCookieStore basicCookieStore=new BasicCookieStore();
+    public BasicCookieStore basicCookieStore = new BasicCookieStore();
 
     public PostRequest(){
 
@@ -57,7 +57,7 @@ public abstract class PostRequest {
 
     }
 
-    public abstract void doPost(HttpPost httpPost, ClassicHttpResponse httpResponse);
+    protected abstract void doPost(HttpPost httpPost, ClassicHttpResponse httpResponse);
 
     public  String getUrl() {
         return url;

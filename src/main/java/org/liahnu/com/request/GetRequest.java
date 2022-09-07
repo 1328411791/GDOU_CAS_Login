@@ -2,6 +2,7 @@ package org.liahnu.com.request;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
+import org.apache.hc.client5.http.cookie.Cookie;
 import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -47,7 +48,7 @@ public abstract class GetRequest {
         }
     }
 
-    public abstract void doGet(HttpGet httpPost, ClassicHttpResponse httpResponse);
+    protected abstract void doGet(HttpGet httpPost, ClassicHttpResponse httpResponse);
 
     public  String getUrl() {
         return url;
@@ -63,6 +64,10 @@ public abstract class GetRequest {
 
     public void setNvps(List<NameValuePair> nvps) {
         this.nvps = nvps;
+    }
+
+    public void setAuth(Cookie cookie) {
+        basicCookieStore.addCookie(cookie);
     }
 
     public BasicCookieStore getBasicCookieStore() {

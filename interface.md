@@ -1,26 +1,3 @@
-## POST save
-
-POST http://ehall.gdou.edu.cn/xsfw/sys/swmxsyqxxsjapp/modules/mrbpa/saveStuXx.do
-
-> Body 请求参数
-
-```yaml
-data: '{"BY5_DISPLAY":"否，家庭成员一直在境内","BY6":"0","BY5":"0","ZYDM":"4011","BY4":"0","GJDQ":"156","BY3":"0","BY2":"<地址>","BY1":"广东省/深圳市/龙华区","SFDFHB_DISPLAY":"否","DWDM":"40","SFJZ":"0","JQQK_DISPLAY":"","SZDQ":"440309","JTCYJKZK_DISPLAY":"否","SZDQ_DISPLAY":"广东省/深圳市/龙华区","BY4_DISPLAY":"否，没有接触过","ZYDM_DISPLAY":"计算机科学与技术","BY3_DISPLAY":"有广东省内旅居史","BY7_DISPLAY":"已接种第三针","JJLXRDH":"<电话号码>","XXDZ":"440309","XLZK_DISPLAY":"是，一直在居住地或常住地","QTQK_DISPLAY":"否，没有到过中高风险地区","JTCYJKZK":"0","RYLB_DISPLAY":"","TW":"0","XBDM":"1","LXDH":"<电话号码>","XH":"<学号>","BJDM_DISPLAY":"<班级>","XM":"<姓名>","SFJZ_DISPLAY":"否","BY1_DISPLAY":"广东省/深圳市/龙华区","XLZK":"0","TBSJ":"2022-08-27","BY6_DISPLAY":"否，身体正常","QTQK":"0","JTXXDZ":"<详细地址>","JJLXRJG_DISPLAY":"母子","XXDZ_DISPLAY":"广东省/深圳市/龙华区","BJDM":"421401103","SFDFHB":"0","BRJKZT":"1","JJLXR":"<母亲姓名>","JJLXRJG":"母子","DWDM_DISPLAY":"<学院>","BRJKZT_DISPLAY":"是","GJDQ_DISPLAY":"中国","TW_DISPLAY":"否，没有发热症状","BY7":"3","XBDM_DISPLAY":"男","isToday":true,"DFHTJHBSJ":"","GCKSRQ":"","GCJSRQ":"","WID":"2022-08-27-<学号>"}'
-
-```
-
-### 请求参数
-
-|名称|位置|类型|必选|说明|
-|---|---|---|---|---|
-|EMAP_LANG|cookie|string| 否 |none|
-|_WEU|cookie|string| 是 |none|
-|route|cookie|string| 否 |none|
-|MOD_AUTH_CAS|cookie|string| 是 |none|
-|body|body|object| 否 |none|
-|» data|body|string| 否 |none|
-
-
 ## POST CAS登录
 
 POST http://authserver.gdou.edu.cn/authserver/login
@@ -62,16 +39,179 @@ execution: 28775e70-d4eb-488e-8a54-c2799a953e43_ZXlKaGJHY2lPaUpJVXpVeE1pSjkuYlQ0
 |» lt|body|string| 是   |none|
 |» execution|body|string| 是   |none|
 
-## <以下暂未更新>
+# 健康登录
 
-## POST 得到健康打卡数据
+    以下按照接口顺序进行操作
 
-POST http://ehall.gdou.edu.cn/xsfw/sys/swpubapp/MobileCommon/getMenuInfo.do
+## GET 网络认证
+
+GET /xsfw/sys/xsyqxxsjapp/*default/index.do
+
+### 请求参数
+
+|名称|位置|类型|必选|说明|
+|---|---|---|---|---|
+|MOD_AUTH_CAS|cookie|string| 否 |none|
+
+### 注释
+
+    会获取到下一个请求所需要的(_WEU)加密前(可能?)Cookie
+
+## GET 获取认证后? _Weu参数
+
+GET /xsfw/sys/swpubapp/indexmenu/getAppConfig.do
+
+### 请求参数
+
+| 名称           | 位置     | 类型     | 必选  | 说明   |
+|--------------|--------|--------|-----|------|
+| _WEU         | cookie | string | 是   | none |
+| MOD_AUTH_CAS | cookie | string | 是   | none |
+| appId        | query  | string | 否   | none |
+| appName      | query  | string | 否   | none |
+
+## POST 提交表单
+
+POST /xsfw/sys/xsyqxxsjapp/mrbpa/saveMrbpa.do
 
 > Body 请求参数
 
 ```yaml
-data: '{"APPID":"5811260348942403","APPNAME":"swmxsyqxxsjapp"}'
+data: "{\r
+
+  \  \"JBXX\": {\r
+
+  \    \"XH\": \"<学号>\",\r
+
+  \    \"XM\": \"<姓名>\",\r
+
+  \    \"DWDM_DISPLAY\": \"<学院>\",\r
+
+  \    \"DWDM\": \"40\",\r
+
+  \    \"ZYDM_DISPLAY\": \"<专业>\",\r
+
+  \    \"ZYDM\": \"4011\",\r
+
+  \    \"BJDM_DISPLAY\": \"<班级>\",\r
+
+  \    \"BJDM\": \"421401103\",\r
+
+  \    \"XBDM_DISPLAY\": \"男\",\r
+
+  \    \"XBDM\": \"1\",\r
+
+  \    \"LXDH\": \"18902833039\",\r
+
+  \    \"GJDQ_DISPLAY\": \"中国\",\r
+
+  \    \"GJDQ\": \"156\",\r
+
+  \    \"XXDZ_DISPLAY\": \"广东省/深圳市/龙华区\",\r
+
+  \    \"XXDZ\": \"440309\",\r
+
+  \    \"JTXXDZ\": \"<家庭住址>\",\r
+
+  \    \"SZDQ_DISPLAY\": \"龙华区\",\r
+
+  \    \"SZDQ\": \"440309\",\r
+
+  \    \"RYLB_DISPLAY\": \"\",\r
+
+  \    \"RYLB\": \"\",\r
+
+  \    \"JJLXR\": \"<监护人姓名>\",\r
+
+  \    \"JJLXRDH\": \"<监护人电话>\",\r
+
+  \    \"JJLXRJG\": \"母子\",\r
+
+  \    \"JQQK_DISPLAY\": \"\",\r
+
+  \    \"JQQK\": \"\",\r
+
+  \    \"GCKSRQ\": \"\",\r
+
+  \    \"GCJSRQ\": \"\",\r
+
+  \    \"SFDFHB_DISPLAY\": \"否\",\r
+
+  \    \"SFDFHB\": \"0\",\r
+
+  \    \"DFHTJHBSJ\": \"\",\r
+
+  \    \"ZDRQJCQK\": \"\",\r
+
+  \    \"JTXC\": \"\",\r
+
+  \    \"JQQTQK\": \"\",\r
+
+  \    \"XSBH\": \"<学号>\"\r
+
+  \  },\r
+
+  \  \"MRQK\": {\r
+
+  \    \"WID\": \"bbe5d4c0b0f043ada39d953271bc8937\",\r
+
+  \    \"XSBH\": \"<学号>\",\r
+
+  \    \"TBSJ\": \"2022-09-07\",\r
+
+  \    \"TW_DISPLAY\": \"&lt;37.3℃(正常)\",\r
+
+  \    \"TW\": \"0\",\r
+
+  \    \"JTCYJKZK_DISPLAY\": \"否，身体正常\",\r
+
+  \    \"JTCYJKZK\": \"0\",\r
+
+  \    \"BY1_DISPLAY\": \"广东省/阳江市/江城区\",\r
+
+  \    \"BY1\": \"广东省/阳江市/江城区\",\r
+
+  \    \"BY2\": \"广东海洋大学阳江校区\",\r
+
+  \    \"BRJKZT_DISPLAY\": \"是\",\r
+
+  \    \"BRJKZT\": \"1\",\r
+
+  \    \"SFJZ_DISPLAY\": \"否\",\r
+
+  \    \"SFJZ\": \"0\",\r
+
+  \    \"XLZK_DISPLAY\": \"是，一直在居住地或常住地\",\r
+
+  \    \"XLZK\": \"0\",\r
+
+  \    \"QTQK_DISPLAY\": \"否，没有到过中高风险地区\",\r
+
+  \    \"QTQK\": \"0\",\r
+
+  \    \"BY3_DISPLAY\": \"有广东省内旅居史\",\r
+
+  \    \"BY3\": \"0\",\r
+
+  \    \"BY4_DISPLAY\": \"否，没有接触过\",\r
+
+  \    \"BY4\": \"0\",\r
+
+  \    \"BY5_DISPLAY\": \"否，家庭成员一直在境内\",\r
+
+  \    \"BY5\": \"0\",\r
+
+  \    \"BY6_DISPLAY\": \"否，没有以上症状\",\r
+
+  \    \"BY6\": \"0\",\r
+
+  \    \"BY7_DISPLAY\": \"已接种第三针\",\r
+
+  \    \"BY7\": \"3\"\r
+
+  \  }\r
+
+  }"
 
 ```
 
@@ -79,32 +219,34 @@ data: '{"APPID":"5811260348942403","APPNAME":"swmxsyqxxsjapp"}'
 
 |名称|位置|类型|必选|说明|
 |---|---|---|---|---|
-|route|cookie|string| 否 |none|
+|_WEU|cookie|string| 是 |none|
 |MOD_AUTH_CAS|cookie|string| 是 |none|
-|User-Agent|header|string| 否 |none|
-|X-Requested-With|header|string| 否 |none|
+|route|cookie|string| 否 |none|
+|EMAP_LANG|cookie|string| 否 |none|
 |body|body|object| 否 |none|
 |» data|body|string| 否 |none|
 
+> 返回示例
 
-## POST 1
+> 200 Response
 
-POST /xsfw/sys/swpubapp/MobileCommon/getSelRoleConfig.do
-
-> Body 请求参数
-
-```yaml
-data: '{"APPID":"5811260348942403","APPNAME":"swmxsyqxxsjapp"}'
-
+```json
+{
+  "code": "string",
+  "msg": "string"
+}
 ```
 
-### 请求参数
+### 返回数据结构
 
-|名称|位置|类型|必选|说明|
-|---|---|---|---|---|
-|route|cookie|string| 否 |none|
-|User-Agent|header|string| 否 |none|
-|Origin|header|string| 否 |none|
-|body|body|object| 否 |none|
-|» data|body|string| 否 |none|
+状态码 **200**
+
+|名称|类型|必选|约束|中文名|说明|
+|---|---|---|---|---|---|
+|» code|string|true|none||none|
+|» msg|string|true|none||none|
+
+### 注释
+
+    data信息建议抓包
 

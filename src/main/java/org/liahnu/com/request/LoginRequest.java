@@ -35,6 +35,7 @@ public class LoginRequest extends PostRequest {
     }
 
 
+    //设置登录参数
     public LoginRequest(String username,String password){
         super(url);
         this.username=username;
@@ -72,11 +73,11 @@ public class LoginRequest extends PostRequest {
     }
 
     @Override
-    public void doPost(HttpPost httpPost, ClassicHttpResponse httpResponse) {
-        String html = String.valueOf(httpResponse.getEntity());
+    protected void doPost(HttpPost httpPost, ClassicHttpResponse httpResponse) {
+
         List<Cookie> cookies = basicCookieStore.getCookies();
 
-        for (Cookie cookie:cookies) {
+        for (Cookie cookie : cookies) {
             if (cookie.getName().equals("MOD_AUTH_CAS")) {
                 MOD_AUTH_CAS = cookie;
                 break;
